@@ -1,6 +1,7 @@
 using CardGame.Web.Exceptions;
 using CardGame.Web.Messages;
 using Mirror;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -50,6 +51,23 @@ namespace CardGame.Web
                 NetworkClient.Send(message);
             }
 
+        }
+
+        public void AddHandler<T>(Action<T> action) where T : struct, NetworkMessage
+        {
+            if (!IsConnected || !IsHost.HasValue)
+            {
+                throw new NotConnectedYetException();
+            }
+
+            if (IsHost.Value)
+            {
+                NetworkServer.RegisterHandler<T>((_, m) => action(m));
+            }
+            else
+            {
+                NetworkClient.RegisterHandler(action);
+            }
         }
     }
 }

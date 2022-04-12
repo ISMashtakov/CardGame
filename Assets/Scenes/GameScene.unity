@@ -836,6 +836,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d565e608a9a60bc4aa7de03080cc5bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnPlayRightCard:
+    m_PersistentCalls:
+      m_Calls: []
   _leftPoint: {fileID: 1412413990}
   _rightPoint: {fileID: 1724222559}
 --- !u!1 &1006347391

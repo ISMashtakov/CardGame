@@ -8,12 +8,15 @@ namespace CardGame.Game.Cards
 {
     public abstract class Card
     {
+        public string Name { get; set; }
         public string Text { get; set; }
+
         public Weapon Weapon { get; set; }
         public CardType CardType { get; set; }
 
-        protected Card(string text, Weapon weapon, CardType cardType)
+        protected Card(string name, string text, Weapon weapon, CardType cardType)
         {
+            Name = name;
             Text = text;
             Weapon = weapon;
             CardType = cardType;
@@ -34,5 +37,9 @@ namespace CardGame.Game.Cards
         }
 
         public abstract List<AnimatedAction> GetEffect(UserPresentation user);
+
+        public override string ToString() {
+            return Name;
+        }
     }
 }

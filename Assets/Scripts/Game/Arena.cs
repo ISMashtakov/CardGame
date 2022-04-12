@@ -1,11 +1,14 @@
 using CardGame.Game.Actions;
 using CardGame.Game.Cards;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace CardGame.Game
 {
     public class Arena : MonoSingletone<Arena>, IDropCard
     {
+        public UnityEvent<CardPresenter> OnPlayRightCard = new UnityEvent<CardPresenter>();
+
         [SerializeField] Transform _leftPoint;
         [SerializeField] Transform _rightPoint;
 
@@ -19,7 +22,6 @@ namespace CardGame.Game
         {
             _hand = PlayerHand.GetInstanse();
             _animatedActionsController = AnimatedActionsController.GetInstanse();
-            SetLeftCard(CardFactory.Create(new MaceHit()));
         }
 
         public void OnDropCard(CardPresenter cardPresenter)
@@ -32,6 +34,7 @@ namespace CardGame.Game
                 cardPresenter.MoveTo(_rightPoint.position);
                 cardPresenter.SetLayer(1);
                 _rightCard = cardPresenter;
+                OnPlayRightCard.Invoke(_rightCard);
                 CheckEndOfTurn();
             }
         }

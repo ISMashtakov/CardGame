@@ -7,8 +7,10 @@ namespace CardGame.Game.Cards
 {
     public class MaceHit : Card
     {
-        public MaceHit(): base(
-            "Нанести 3 урона",
+        int _damage = 3;
+        public MaceHit() : base(
+            "Удар",
+            $"Нанести {3} урона",
             Weapon.Mace,
             CardType.ATTACK
             ) {}
@@ -17,8 +19,14 @@ namespace CardGame.Game.Cards
         {
             return new List<AnimatedAction>
             {
-                new DealingDamage(user.GetOpposite(), 3)
+                new DealingDamage(user.GetOpposite(), _damage)
             };
+        }
+
+        public static MaceHit FromString(string data)
+        {
+            UnityEngine.Debug.Log(data);
+            return new MaceHit();
         }
     }
 }

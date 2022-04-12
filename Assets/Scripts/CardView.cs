@@ -8,6 +8,7 @@ namespace CardGame.Game.Cards {
     public class CardView : MonoBehaviour
     {
         [SerializeField] SpriteRenderer _weaponSprite;
+        [SerializeField] TMP_Text _name;
         [SerializeField] TMP_Text _text;
         [SerializeField] Canvas _canvas;
         SpriteRenderer _spriteRenderer;
@@ -31,6 +32,7 @@ namespace CardGame.Game.Cards {
         {
             _card = _cardPresenter.Card;
             SetText(_card.Text);
+            SetName(_card.Name);
             SetWeapon(_card.Weapon);
             SetType(_card.CardType);
         }
@@ -38,6 +40,11 @@ namespace CardGame.Game.Cards {
         public void SetText(string text)
         {
             _text.text = text;
+        }
+
+        public void SetName(string name)
+        {
+            _name.name = name;
         }
 
         public void SetWeapon(Weapon weapon)
