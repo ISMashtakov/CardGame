@@ -1,3 +1,4 @@
+using CardGame.Web;
 using CardGame.Web.Messages;
 using UnityEngine.SceneManagement;
 
@@ -7,11 +8,12 @@ namespace CardGame.MainMenu
     {
         private void Start()
         {
-            CardGame.Web.Network.GetInstanse().AddMessageListener<AllConectedMessage>(AllConnected);
+            Network.GetInstanse().OnConnectListener.AddListener(AllConnected);
         }
 
-        void AllConnected(AllConectedMessage mes)
+        void AllConnected()
         {
+            UnityEngine.Debug.Log("ALl COnnected");
             SceneManager.LoadScene(1);
         }
     }

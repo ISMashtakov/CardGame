@@ -1,53 +1,55 @@
+using CardGame.Web.Exceptions;
+using CardGame.Web.Messages;
 using Mirror;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace CardGame.Web
 {
     public class Network : Singletone<Network>
     {
-        ConnectionManager _connectionManager;
-        Dictionary<Type, Action> _handlers = new Dictionary<Type, Action>();
+        public UnityEvent OnConnectListener = new UnityEvent();
 
-        public Network()
+        public bool? IsHost { get; private set; } = null;
+        public bool IsConnected { get; private set; } = false;
+
+        public void OnStart(bool isHost)
         {
-            _connectionManager = GameObject.FindObjectOfType<ConnectionManager>();
+            IsHost = isHost;
+        }
+
+        public void OnStop()
+        {
+            IsHost = null;
         }
 
         public void OnConnect()
         {
-            RegisterAllHandlers();
+            IsConnected = true;
+            OnConnectListener.Invoke();
         }
 
         public void OnDisconnect()
         {
+            IsConnected = false;
         }
 
-        public void AddMessageListener<T>(Action<T> handler) where T: struct, NetworkMessage
+        public void Send<T>(T message) where T : struct, NetworkMessage
         {
-            if (_handlers.ContainsKey(typeof(T)))
+            if (!IsConnected || !IsHost.HasValue)
             {
-                return;
+                throw new NotConnectedYetException();
             }
 
-            _handlers.Add(typeof(T), () => NetworkClient.RegisterHandler<T>(handler));
-            _handlers[typeof(T)]();
-
-            _connectionManager.Server.AddHandler<T>();
-        }
-
-        public void DeleteMessageListener<T>() where T : struct, NetworkMessage
-        {
-            NetworkClient.UnregisterHandler<T>();
-        }
-
-        void RegisterAllHandlers()
-        {
-            foreach (Action action in _handlers.Values)
+            if (IsHost.Value)
             {
-                action();
+                NetworkServer.SendToAll(message);
             }
+            else
+            {
+                NetworkClient.Send(message);
+            }
+
         }
     }
 }

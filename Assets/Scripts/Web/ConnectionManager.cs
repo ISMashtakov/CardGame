@@ -4,49 +4,54 @@ using UnityEngine;
 namespace CardGame.Web{
     public class ConnectionManager : NetworkManager
     {
-        public Server Server = new Server();
-        
+        Network _network;
+        public override void Start()
+        {
+            _network = Network.GetInstanse();
+        }
+
         public override void OnServerConnect(NetworkConnectionToClient conn)
         {
             base.OnServerConnect(conn);
             Debug.Log("OnServerConnect");
-            Server.AddClient(conn);
+            _network.OnConnect();
         }
 
         public override void OnServerDisconnect(NetworkConnectionToClient conn)
         {
             base.OnServerDisconnect(conn);
-            Server.DeleteClient(conn);
             Debug.Log("OnServerDisconnect");
-
+            _network.OnDisconnect();
         }
 
         public override void OnStartServer()
         {
             base.OnStartServer();
-            Server.Start();
             Debug.Log("OnStartServer");
+            _network.OnStart(true);
         }
 
         public override void OnStopServer()
         {
             base.OnStopServer();
-            Server.Stop();
             Debug.Log("OnStopServer");
+            _network.OnStop();
         }
 
         public override void OnClientConnect()
         {
             base.OnClientConnect();
-            Network.GetInstanse().OnConnect();
             Debug.Log("OnClientConnect");
+            _network.OnStart(false);
+            _network.OnConnect();
         }
 
         public override void OnClientDisconnect()
         {
             base.OnClientDisconnect();
-            Network.GetInstanse().OnDisconnect();
             Debug.Log("OnClientDisconnect");
+            _network.OnStop();
+            _network.OnDisconnect();
         }
 
     }
