@@ -1,6 +1,8 @@
 using CardGame.Game.Cards;
 using CardGame.Web;
 using CardGame.Web.Messages;
+using UnityEngine;
+using Network = CardGame.Web.Network;
 
 namespace CardGame.Game {
     public class PlayingCardController
@@ -19,7 +21,9 @@ namespace CardGame.Game {
         void OnMessage(PlayedCardMessage mes)
         {
             Card card = CardDecoder.Decode(mes);
-            _arena.SetLeftCard(CardFactory.Create(card));
+            CardPresenter cardPresenter = CardFactory.Create(card);
+            cardPresenter.transform.position = _arena.transform.position + Vector3.up * 10;
+            _arena.SetLeftCard(cardPresenter);
         }
 
         void OnPlayCard(CardPresenter cardPresenter)

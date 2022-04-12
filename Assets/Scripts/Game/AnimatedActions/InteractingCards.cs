@@ -17,6 +17,8 @@ namespace CardGame.Game.Actions
 
         public override IEnumerator Execute()
         {
+            yield return new WaitForSeconds(1f);
+
             yield return _leftCard.PlayCardTypeEffect(_rightCard.Card);
             yield return new WaitForSeconds(0.5f);
             foreach(AnimatedAction action in _leftCard.Card.GetEffect(UserPresentation.GetEnemy()))

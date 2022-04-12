@@ -28,6 +28,7 @@ namespace CardGame.Game.Actions
                 Card card = _user.Deck.Pop();
                 CardPresenter cardPresenter = CardFactory.Create(card);
                 _user.Hand.AddCard(cardPresenter);
+                cardPresenter.Delete();
             }
 
         }

@@ -19,6 +19,7 @@ namespace CardGame.Game
             for (int i = 0; i < 2; i++)
             {
                 _animatedActionsController.AddAction(new TakingCard(UserPresentation.GetLocal()));
+                _animatedActionsController.AddAction(new TakingCard(UserPresentation.GetEnemy()));
             }
         }
     }
