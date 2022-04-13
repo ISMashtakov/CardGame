@@ -16,5 +16,19 @@ namespace CardGame.Game.Cards {
         {
             return Create(card, null);
         }
+
+
+    }
+    public static class CardExstension
+    {
+        public static CardPresenter Create(this Card card)
+        {
+            return CardFactory.Create(card);
+        }
+
+        public static CardPresenter Create(this Card card, Transform transform)
+        {
+            return CardFactory.Create(card, transform);
+        }
     }
 }

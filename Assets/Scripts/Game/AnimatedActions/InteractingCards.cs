@@ -19,24 +19,32 @@ namespace CardGame.Game.Actions
         {
             yield return new WaitForSeconds(1f);
 
+
             yield return _leftCard.PlayCardTypeEffect(_rightCard.Card);
             yield return new WaitForSeconds(0.5f);
-            foreach(AnimatedAction action in _leftCard.Card.GetEffect(UserPresentation.GetEnemy()))
+            if (_leftCard.Card.WillBePlayed(_rightCard.Card))
             {
-                yield return action.Execute();
-                yield return new WaitForSeconds(0.5f);
+                foreach (AnimatedAction action in _leftCard.Card.GetEffect(UserPresentation.GetEnemy()))
+                {
+                    yield return action.Execute();
+                    yield return new WaitForSeconds(0.5f);
+                }
             }
-
             yield return new WaitForSeconds(0.5f);
+
 
             yield return _rightCard.PlayCardTypeEffect(_leftCard.Card);
-            foreach (AnimatedAction action in _rightCard.Card.GetEffect(UserPresentation.GetLocal()))
-            {
-                yield return action.Execute();
-                yield return new WaitForSeconds(0.5f);
-            }
-
             yield return new WaitForSeconds(0.5f);
+            if (_rightCard.Card.WillBePlayed(_leftCard.Card))
+            {
+                foreach (AnimatedAction action in _rightCard.Card.GetEffect(UserPresentation.GetLocal()))
+                {
+                    yield return action.Execute();
+                    yield return new WaitForSeconds(0.5f);
+                }
+            }
+            yield return new WaitForSeconds(0.5f);
+
 
             _leftCard.MoveTo(_leftCard.transform.position + Vector3.up * 100f);
             _rightCard.MoveTo(_rightCard.transform.position + Vector3.up * 100f);

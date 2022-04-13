@@ -20,7 +20,7 @@ namespace CardGame.Game
             {
                 DeselectCard();
             }
-            _zoomedCard = CardFactory.Create(card.Card, transform);
+            _zoomedCard = card.Card.Create(transform);
             _zoomedCard.transform.position = Vector3.zero;
             _zoomedCard.enabled = false;
             _zoomedCard.SetLayer(1001);

@@ -17,7 +17,7 @@ namespace CardGame.Game.Actions
             if (_user.IsLocal())
             {
                 Card card = _user.Deck.Pop();
-                CardPresenter cardPresenter = CardFactory.Create(card);
+                CardPresenter cardPresenter = card.Create();
                 cardPresenter.transform.position = _user.Deck.Position;
                 cardPresenter.SetLayer(100);
                 yield return new WaitForSeconds(1);
@@ -26,7 +26,7 @@ namespace CardGame.Game.Actions
             else
             {
                 Card card = _user.Deck.Pop();
-                CardPresenter cardPresenter = CardFactory.Create(card);
+                CardPresenter cardPresenter = card.Create();
                 _user.Hand.AddCard(cardPresenter);
                 cardPresenter.Delete();
             }

@@ -7,7 +7,7 @@ namespace CardGame.Game {
     public class PlayerDeck : MonoSingletone<PlayerDeck>, IDeck
     {
 
-        List<Card> cards = new List<Card> { new MaceHit(), new MaceHit(), new MaceHit(), new MaceHit(), new MaceHit(), new MaceHit(), new MaceHit(), new MaceHit(), new MaceHit(), new MaceHit() };
+        List<Card> cards = new List<Card>();
 
         UnityEvent<int> _onChangeCount = new UnityEvent<int>();
         public UnityEvent<int> OnChangeCount => _onChangeCount;
@@ -23,6 +23,11 @@ namespace CardGame.Game {
             }
 
             return null;
+        }
+
+        public void ToTop(Card card)
+        {
+            cards.Insert(0, card);
         }
     }
 }

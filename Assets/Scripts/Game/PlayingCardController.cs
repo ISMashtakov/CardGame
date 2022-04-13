@@ -21,7 +21,7 @@ namespace CardGame.Game {
         void OnMessage(PlayedCardMessage mes)
         {
             Card card = CardDecoder.Decode(mes);
-            CardPresenter cardPresenter = CardFactory.Create(card);
+            CardPresenter cardPresenter = card.Create();
             cardPresenter.transform.position = _arena.transform.position + Vector3.up * 10;
             _arena.SetLeftCard(cardPresenter);
         }

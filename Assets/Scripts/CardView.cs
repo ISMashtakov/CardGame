@@ -44,7 +44,7 @@ namespace CardGame.Game.Cards {
 
         public void SetName(string name)
         {
-            _name.name = name;
+            _name.text = name;
         }
 
         public void SetWeapon(Weapon weapon)
@@ -63,6 +63,12 @@ namespace CardGame.Game.Cards {
             {
                 case CardType.ATTACK:
                     _spriteRenderer.sprite = _cardTypeStorage.AttackCardBack;
+                    break;
+                case CardType.DEFEND:
+                    _spriteRenderer.sprite = _cardTypeStorage.DefentCardBack;
+                    break;
+                case CardType.TRICK:
+                    _spriteRenderer.sprite = _cardTypeStorage.TrickCardBack;
                     break;
             }
         }

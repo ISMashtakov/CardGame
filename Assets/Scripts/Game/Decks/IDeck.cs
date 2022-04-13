@@ -7,6 +7,9 @@ namespace CardGame.Game
     {
         public Card Pop();
 
+        public void ToTop(Card card);
+
+
         public Vector3 Position { get; } 
     }
 }

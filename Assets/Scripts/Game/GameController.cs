@@ -1,4 +1,6 @@
 using CardGame.Game.Actions;
+using CardGame.Game.Cards;
+using CardGame.Game.Cards.Mace;
 
 namespace CardGame.Game
 {
@@ -16,6 +18,15 @@ namespace CardGame.Game
         void Start()
         {
             _playingCardController = new PlayingCardController();
+
+            for (int i = 0; i < 10; i++)
+            {
+                PlayerDeck.GetInstanse().ToTop(new MaceBlock());
+                EnemyDeck.GetInstanse().ToTop(new MaceBlock());
+            }
+
+            Arena.GetInstanse().SetLeftCard(new MaceHit().Create());
+
             for (int i = 0; i < 2; i++)
             {
                 _animatedActionsController.AddAction(new TakingCard(UserPresentation.GetLocal()));

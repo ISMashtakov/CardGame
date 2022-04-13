@@ -3,7 +3,7 @@ using CardGame.Game.Cards.Types;
 using System.Collections.Generic;
 using CardGame.Game.Actions;
 
-namespace CardGame.Game.Cards
+namespace CardGame.Game.Cards.Mace
 {
     public class MaceHit : Card
     {
@@ -25,7 +25,6 @@ namespace CardGame.Game.Cards
 
         public static MaceHit FromString(string data)
         {
-            UnityEngine.Debug.Log(data);
             return new MaceHit();
         }
     }
