@@ -29,8 +29,8 @@ namespace CardGame.Game.Cards
                 case CardType.ATTACK:
                     return other.CardType != CardType.DEFEND;
                 case CardType.DEFEND:
-                    return other.CardType != CardType.MOVE;
-                case CardType.MOVE:
+                    return other.CardType != CardType.TRICK;
+                case CardType.TRICK:
                     return other.CardType != CardType.ATTACK;
             }
             throw new NotImplementedException("Not handled case for CardType");

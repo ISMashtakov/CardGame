@@ -725,6 +725,12 @@ MonoBehaviour:
   AttackCardBack: {fileID: 21300000, guid: 757c61230a23a9246882cd1b8130b7e3, type: 3}
   AttackGoodEffect: {fileID: 2058269279277775047, guid: ed4857baa4b268346ba31cd9ab67b732, type: 3}
   AttackBadEffect: {fileID: 8660979472866843754, guid: 99514e242e6dfca408eafb6dd984702d, type: 3}
+  DefentCardBack: {fileID: 21300000, guid: 21b40deea0b65844ba34fac06ffa651e, type: 3}
+  DefendGoodEffect: {fileID: 0}
+  DefendBadEffect: {fileID: 0}
+  TrickCardBack: {fileID: 21300000, guid: 83ff19c93be059a41874a6b18a128c62, type: 3}
+  TrickGoodEffect: {fileID: 0}
+  TrickBadEffect: {fileID: 0}
 --- !u!1 &987306230
 GameObject:
   m_ObjectHideFlags: 0

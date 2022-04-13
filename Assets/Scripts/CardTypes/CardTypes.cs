@@ -1,4 +1,4 @@
 namespace CardGame.Game.Cards.Types
 {
-    public enum CardType { ATTACK, DEFEND, MOVE }
+    public enum CardType { ATTACK, DEFEND, TRICK }
 }
