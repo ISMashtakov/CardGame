@@ -3,16 +3,15 @@ using CardGame.Game.Cards.Types;
 using System.Collections.Generic;
 using CardGame.Game.Actions;
 
-
 namespace CardGame.Game.Cards.Mace
 {
-    public class MaceBlock : Card
+    public class #SCRIPTNAME# : Card
     {
-        public MaceBlock() : base(
-            "Блок",
-            $"Возьмите в руку {1} карту",
+        public #SCRIPTNAME#() : base(
+            "Name",
+            $"Text",
             Weapon.Mace,
-            CardType.DEFEND
+            CardType.ATTACK
             )
         { }
 
@@ -20,13 +19,13 @@ namespace CardGame.Game.Cards.Mace
         {
             return new List<AnimatedAction>
             {
-                new TakingCard(user)
+                
             };
         }
 
-        public static MaceBlock FromString(string data)
+        public static #SCRIPTNAME# FromString(string data)
         {
-            return new MaceBlock();
+            return new #SCRIPTNAME#();
         }
     }
 }

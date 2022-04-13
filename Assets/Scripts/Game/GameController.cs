@@ -21,11 +21,11 @@ namespace CardGame.Game
 
             for (int i = 0; i < 10; i++)
             {
-                PlayerDeck.GetInstanse().ToTop(new MaceBlock());
+                PlayerDeck.GetInstanse().ToTop(new MaceHit());
                 EnemyDeck.GetInstanse().ToTop(new MaceBlock());
             }
 
-            Arena.GetInstanse().SetLeftCard(new MaceHit().Create());
+            Arena.GetInstanse().SetLeftCard(new MaceReadMovement().Create());
 
             for (int i = 0; i < 2; i++)
             {

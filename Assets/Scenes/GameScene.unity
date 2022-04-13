@@ -726,8 +726,8 @@ MonoBehaviour:
   AttackGoodEffect: {fileID: 2058269279277775047, guid: ed4857baa4b268346ba31cd9ab67b732, type: 3}
   AttackBadEffect: {fileID: 8660979472866843754, guid: 99514e242e6dfca408eafb6dd984702d, type: 3}
   DefentCardBack: {fileID: 21300000, guid: 21b40deea0b65844ba34fac06ffa651e, type: 3}
-  DefendGoodEffect: {fileID: 0}
-  DefendBadEffect: {fileID: 0}
+  DefendGoodEffect: {fileID: 6557187265559422981, guid: 3ed5e502e1a058540ba0ebe3ae33b5f0, type: 3}
+  DefendBadEffect: {fileID: 2914652077412616649, guid: f279eda08aaa0d34ebad2f3ca24566c3, type: 3}
   TrickCardBack: {fileID: 21300000, guid: 83ff19c93be059a41874a6b18a128c62, type: 3}
   TrickGoodEffect: {fileID: 0}
   TrickBadEffect: {fileID: 0}
