@@ -29,5 +29,10 @@ namespace CardGame.Game {
         {
             cards.Insert(0, card);
         }
+
+        public void SetDeck(List<Card> cards)
+        {
+            this.cards = cards;
+        }
     }
 }

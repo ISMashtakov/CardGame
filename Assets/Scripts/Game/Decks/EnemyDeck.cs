@@ -7,8 +7,7 @@ namespace CardGame.Game
 {
     public class EnemyDeck : MonoSingletone<EnemyDeck>, IDeck
     {
-
-        List<Card> cards = new List<Card>();
+        int _cardCount = 0;
 
         UnityEvent<int> _onChangeCount = new UnityEvent<int>();
         public UnityEvent<int> OnChangeCount => _onChangeCount;
@@ -17,25 +16,26 @@ namespace CardGame.Game
 
         private void Start()
         {
-            OnChangeCount.Invoke(cards.Count);
+            OnChangeCount.Invoke(_cardCount);
         }
 
         public Card Pop()
         {
-            if (cards.Count > 0)
+            if(_cardCount > 0)
             {
-                Card elem = cards[0];
-                cards.Remove(elem);
-                OnChangeCount.Invoke(cards.Count);
-                return elem;
+                _cardCount--;
             }
-
             return null;
         }
 
         public void ToTop(Card card)
         {
-            cards.Insert(0, card);
+            _cardCount++;
+        }
+
+        public void SetDeck(List<Card> cards)
+        {
+            _cardCount = cards.Count;
         }
     }
 }

@@ -1,4 +1,5 @@
 using CardGame.Game.Cards;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CardGame.Game
@@ -9,7 +10,8 @@ namespace CardGame.Game
 
         public void ToTop(Card card);
 
+        public Vector3 Position { get; }
 
-        public Vector3 Position { get; } 
+        public void SetDeck(List<Card> cards);
     }
 }

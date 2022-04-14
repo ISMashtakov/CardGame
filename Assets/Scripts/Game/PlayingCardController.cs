@@ -24,6 +24,7 @@ namespace CardGame.Game {
             CardPresenter cardPresenter = card.Create();
             cardPresenter.transform.position = _arena.transform.position + Vector3.up * 10;
             _arena.SetLeftCard(cardPresenter);
+            EnemyHand.GetInstanse().Decrease();
         }
 
         void OnPlayCard(CardPresenter cardPresenter)

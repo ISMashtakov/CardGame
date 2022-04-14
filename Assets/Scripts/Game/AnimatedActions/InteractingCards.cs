@@ -6,52 +6,64 @@ namespace CardGame.Game.Actions
 {
     public class InteractingCards : AnimatedAction
     {
-        CardPresenter _leftCard;
-        CardPresenter _rightCard;
+        CardPresenter _enemyCard;
+        CardPresenter _playerCard;
 
         public InteractingCards(CardPresenter leftCard, CardPresenter rightCard)
         {
-            _leftCard = leftCard;
-            _rightCard = rightCard;
+            _enemyCard = leftCard;
+            _playerCard = rightCard;
+        }
+
+        IEnumerator PlayCardEffect(CardPresenter card, CardPresenter other, UserPresentation user)
+        {
+            yield return card.PlayCardTypeEffect(other.Card);
+            yield return new WaitForSeconds(0.5f);
+            if (card.Card.WillBePlayed(other.Card))
+            {
+                foreach (AnimatedAction action in card.Card.GetEffect(user))
+                {
+                    yield return action.Execute();
+                    yield return new WaitForSeconds(0.5f);
+                }
+            }
+            yield return new WaitForSeconds(0.5f);
         }
 
         public override IEnumerator Execute()
         {
             yield return new WaitForSeconds(1f);
 
-
-            yield return _leftCard.PlayCardTypeEffect(_rightCard.Card);
-            yield return new WaitForSeconds(0.5f);
-            if (_leftCard.Card.WillBePlayed(_rightCard.Card))
+            if (GameController.GetInstanse().InitiativeController.IsMy)
             {
-                foreach (AnimatedAction action in _leftCard.Card.GetEffect(UserPresentation.GetEnemy()))
-                {
-                    yield return action.Execute();
-                    yield return new WaitForSeconds(0.5f);
-                }
+                yield return PlayCardEffect(_playerCard, _enemyCard, UserPresentation.GetLocal());
+                yield return new WaitForSeconds(0.5f);
+                yield return PlayCardEffect(_enemyCard, _playerCard, UserPresentation.GetEnemy());
             }
-            yield return new WaitForSeconds(0.5f);
-
-
-            yield return _rightCard.PlayCardTypeEffect(_leftCard.Card);
-            yield return new WaitForSeconds(0.5f);
-            if (_rightCard.Card.WillBePlayed(_leftCard.Card))
+            else
             {
-                foreach (AnimatedAction action in _rightCard.Card.GetEffect(UserPresentation.GetLocal()))
-                {
-                    yield return action.Execute();
-                    yield return new WaitForSeconds(0.5f);
-                }
+                yield return PlayCardEffect(_enemyCard, _playerCard, UserPresentation.GetEnemy());
+                yield return new WaitForSeconds(0.5f);
+                yield return PlayCardEffect(_playerCard, _enemyCard, UserPresentation.GetLocal());
             }
-            yield return new WaitForSeconds(0.5f);
 
+            if (_enemyCard.Card.WillBePlayed(_playerCard.Card) && !_playerCard.Card.WillBePlayed(_enemyCard.Card))
+            {
+                GameController.GetInstanse().InitiativeController.IsMy = false;
+            }
+            else if (!_enemyCard.Card.WillBePlayed(_playerCard.Card) && _playerCard.Card.WillBePlayed(_enemyCard.Card))
+            {
+                GameController.GetInstanse().InitiativeController.IsMy = true;
+            }
 
-            _leftCard.MoveTo(_leftCard.transform.position + Vector3.up * 100f);
-            _rightCard.MoveTo(_rightCard.transform.position + Vector3.up * 100f);
+            _enemyCard.MoveTo(_enemyCard.transform.position + Vector3.up * 100f);
+            _playerCard.MoveTo(_playerCard.transform.position + Vector3.up * 100f);
             yield return new WaitForSeconds(1);
 
-            _leftCard.Delete();
-            _rightCard.Delete();
+            _enemyCard.Delete();
+            _playerCard.Delete();
+
+            GameController.GetInstanse().EndInteraction();
         }
     }
 }

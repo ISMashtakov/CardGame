@@ -37,7 +37,6 @@ namespace CardGame.Web
 
         public void Send<T>(T message) where T : struct, NetworkMessage
         {
-            return; // TODO 
             if (!IsConnected || !IsHost.HasValue)
             {
                 throw new NotConnectedYetException();
@@ -56,7 +55,6 @@ namespace CardGame.Web
 
         public void AddHandler<T>(Action<T> action) where T : struct, NetworkMessage
         {
-            return; // TODO 
             if (!IsConnected || !IsHost.HasValue)
             {
                 throw new NotConnectedYetException();
